@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro-Rubber Zero // Nano-Reinforced Tire Elastomers Proposal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tactical: {
+                            bg: '#0a0f1d',
+                            panel: '#111827',
+                            card: '#1e293b',
+                            border: '#334155',
+                            cyan: '#00f2fe',
+                            cyanLight: '#4facfe',
+                            amber: '#ff8c00',
+                            magenta: '#ff007f',
+                            emerald: '#10b981',
+                            muted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 0 25px -5px rgba(0, 242, 254, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f1d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2fe;
+        }
+
+        /* Tactical Grid Background */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(0, 242, 254, 0.12) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        /* Glowing Accent Effects */
+        .glow-cyan {
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+        }
+        .glow-amber {
+            text-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
+        }
+
+        /* Dynamic Accent Modes */
+        body.theme-amber-accent .text-tactical-cyan { color: #ff8c00 !important; }
+        body.theme-amber-accent .border-tactical-cyan { border-color: #ff8c00 !important; }
+        body.theme-amber-accent .bg-tactical-cyan { background-color: #ff8c00 !important; }
+        body.theme-amber-accent .from-tactical-cyan { --tw-gradient-from: #ff8c00 !important; }
+        
+        body.theme-emerald-accent .text-tactical-cyan { color: #10b981 !important; }
+        body.theme-emerald-accent .border-tactical-cyan { border-color: #10b981 !important; }
+        body.theme-emerald-accent .bg-tactical-cyan { background-color: #10b981 !important; }
+        body.theme-emerald-accent .from-tactical-cyan { --tw-gradient-from: #10b981 !important; }
+
+        /* Custom Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #00f2fe;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
+            margin-top: -8px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-tactical-bg text-slate-100 font-sans antialiased selection:bg-tactical-cyan selection:text-black">
+
+    <!-- Grid Background & Ambient Lighting -->
+    <div class="fixed inset-0 bg-grid-pattern pointer-events-none opacity-40 z-0"></div>
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-tactical-cyan/10 rounded-full filter blur-[120px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-10 right-10 w-96 h-96 bg-tactical-amber/10 rounded-full filter blur-[140px] pointer-events-none z-0"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3.5 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand & SDG Title -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tactical-cyan/20 to-tactical-amber/20 border border-tactical-cyan/40 flex items-center justify-center font-mono font-bold text-tactical-cyan group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-atom text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-mono font-extrabold text-xl tracking-wider text-white">MICRO-RUBBER <span class="text-tactical-cyan">ZERO</span></span>
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase">SDG 12 INNOVATION PROPOSAL</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center gap-6 text-xs font-mono tracking-wide text-slate-300 uppercase">
+                <a href="#overview" class="hover:text-tactical-cyan transition-colors">Overview</a>
+                <a href="#problem" class="hover:text-tactical-cyan transition-colors">Problem & SDG 12</a>
+                <a href="#engineering" class="hover:text-tactical-cyan transition-colors">Chemical Engineering</a>
+                <a href="#metrics" class="hover:text-tactical-cyan transition-colors">Metrics</a>
+                <a href="#simulator" class="hover:text-tactical-cyan transition-colors">Simulator</a>
+                <a href="#integration" class="hover:text-tactical-cyan transition-colors">Drop-In Integration</a>
+            </nav>
+
+            <!-- Actions & Modal trigger -->
+            <div class="flex items-center gap-3">
+                <button id="accentThemeBtn" title="Toggle Accent Theme" class="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-white hover:border-tactical-cyan transition-all">
+                    <i class="fa-solid fa-palette text-sm"></i>
+                </button>
+
+                <button onclick="openModal('proposalModal')" class="relative inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-bold tracking-wider uppercase text-black bg-gradient-to-r from-tactical-cyan to-tactical-cyanLight hover:from-cyan-300 hover:to-cyan-400 rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(0,242,254,0.3)]">
+                    <i class="fa-solid fa-file-pdf mr-2 text-sm"></i> Whitepaper Deck
+                </button>
+
+                <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-slate-800 flex flex-col gap-3 font-mono text-xs uppercase">
+            <a href="#overview" class="mobile-link text-slate-300 hover:text-tactical-cyan">01. Overview</a>
+            <a href="#problem" class="mobile-link text-slate-300 hover:text-tactical-cyan">02. Problem & SDG 12</a>
+            <a href="#engineering" class="mobile-link text-slate-300 hover:text-tactical-cyan">03. Chemical Engineering</a>
+            <a href="#metrics" class="mobile-link text-slate-300 hover:text-tactical-cyan">04. Comparison Metrics</a>
+            <a href="#simulator" class="mobile-link text-slate-300 hover:text-tactical-cyan">05. Live ROI Simulator</a>
+            <a href="#integration" class="mobile-link text-slate-300 hover:text-tactical-cyan">06. Drop-In Integration</a>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HERO OVERVIEW -->
+    <section id="overview" class="relative z-10 pt-16 pb-20 px-4 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card border-tactical-cyan/30 text-xs font-mono text-tactical-cyan">
+                    <span class="w-2 h-2 rounded-full bg-tactical-cyan animate-ping"></span>
+                    <span>PREVENTATIVE NANO-REINFORCED TIRE ELASTOMERS</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+                    Micro-Rubber Zero: <span class="bg-clip-text text-transparent bg-gradient-to-r from-tactical-cyan via-cyan-200 to-tactical-amber glow-cyan">Eradicating Ocean Microplastics</span> at the Source.
+                </h1>
+
+                <p class="text-slate-300 text-lg font-light leading-relaxed">
+                    Preventing micro-particle generation before it begins. By cross-linking synthetic rubber compounds with 3D isotropic crumpled graphene balls using Dicumyl Peroxide (DCP), Micro-Rubber Zero doubles tire tread longevity while cutting hazardous runoff in half.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#simulator" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-tactical-cyan to-tactical-cyanLight text-black font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(0,242,254,0.3)] hover:shadow-[0_0_30px_rgba(0,242,254,0.5)] flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-sm"></i> Launch Impact Simulator
+                    </a>
+                    <a href="#engineering" class="px-6 py-3.5 rounded-xl border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white bg-slate-900/40 font-mono text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-microscope text-tactical-amber"></i> View Chemical Process
+                    </a>
+                </div>
+
+                <!-- Live Counter Stats Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-800">
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-2xl sm:text-3xl font-mono font-bold text-tactical-amber" data-counter="6.0">0</div>
+                        <div class="text-[10px] text-slate-400 font-mono uppercase mt-1">M Million Tons/Yr Shedding</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-2xl sm:text-3xl font-mono font-bold text-tactical-cyan" data-counter="28">0</div>
+                        <div class="text-[10px] text-slate-400 font-mono uppercase mt-1">% Ocean Micro-Pollution</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-2xl sm:text-3xl font-mono font-bold text-emerald-400" data-counter="2">0</div>
+                        <div class="text-[10px] text-slate-400 font-mono uppercase mt-1">X Tread Lifespan Extension</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-2xl sm:text-3xl font-mono font-bold text-cyan-300" data-counter="60">0</div>
+                        <div class="text-[10px] text-slate-400 font-mono uppercase mt-1">% Particle Reduction</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Interactive Graphic / Visual Dashboard Card -->
+            <div class="lg:col-span-5">
+                <div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-tactical-cyan/10 rounded-full blur-2xl"></div>
+                    
+                    <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+                        <div class="flex items-center gap-2 font-mono text-xs text-tactical-cyan">
+                            <i class="fa-solid fa-circle-nodes"></i> NANO-MATRIX COMPOUND STATUS
+                        </div>
+                        <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold uppercase">SDG 12 VERIFIED</span>
+                    </div>
+
+                    <div class="my-6 space-y-5">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-slate-400">Shear Stress Absorption (EV Torque)</span>
+                                <span class="text-tactical-cyan font-bold">+210% Strength</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-tactical-cyan to-blue-500 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-slate-400">6PPD-Quinone Runoff Containment</span>
+                                <span class="text-tactical-amber font-bold">Minimal Release</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-tactical-amber to-red-500 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1.5">
+                                <span class="text-slate-400">Thermal Heat Clearance Rate</span>
+                                <span class="text-emerald-400 font-bold">High (Graphene Conductive)</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-emerald-500 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chemical Composition Badge Box -->
+                    <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 font-mono text-xs space-y-2">
+                        <div class="text-slate-400 flex justify-between">
+                            <span>Base Polymer:</span>
+                            <span class="text-white">SBR / Natural Rubber Blend</span>
+                        </div>
+                        <div class="text-slate-400 flex justify-between">
+                            <span>Reinforcement:</span>
+                            <span class="text-tactical-cyan">Isotropic Crumpled Graphene Balls</span>
+                        </div>
+                        <div class="text-slate-400 flex justify-between">
+                            <span>Cross-Linking Agent:</span>
+                            <span class="text-tactical-amber">Dicumyl Peroxide (DCP)</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
+                        <span>UN Target Alignment: Target 12.4 & 12.5</span>
+                        <a href="#problem" class="text-tactical-cyan hover:underline flex items-center gap-1">
+                            Explore <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: PROBLEM DEFINITION & SDG 12 ALIGNMENT -->
+    <section id="problem" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto relative z-10 border-t border-slate-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono uppercase tracking-widest text-tactical-cyan mb-3">02 // Problem Definition & UN Alignment</h2>
+            <h3 class="text-3xl sm:text-4xl font-bold text-white">The Invisible Microplastic Crisis & EV Acceleration</h3>
+            <p class="text-slate-400 mt-4 font-light text-base">While exhaust pipes draw policy regulation, tire wear remains the single largest source of aquatic microplastic pollution worldwide.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <!-- Crisis Card 1 -->
+            <div class="glass-card p-8 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 flex items-center justify-center text-xl mb-6 font-mono">
+                    <i class="fa-solid fa-water"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-3">28% Aquatic Pollution</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    High-shear friction between roads and tires breaks synthetic rubber into micro-particles. Rain washes these tire particles into rivers and oceans, comprising up to 28% of all primary microplastics in waterways.
+                </p>
+                <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800 font-mono text-xs text-slate-300">
+                    <i class="fa-solid fa-circle-info text-red-400 mr-2"></i> Over 6,000,000 tons shed globally per year.
+                </div>
+            </div>
+
+            <!-- Crisis Card 2 -->
+            <div class="glass-card p-8 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-tactical-amber/10 border border-tactical-amber/30 text-tactical-amber flex items-center justify-center text-xl mb-6 font-mono">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-3">EV Heavy Torque Degradation</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Electric Vehicles (EVs) are 20% to 30% heavier due to battery packs and produce instantaneous torque. This accelerates tire wear by 20–50% compared to traditional internal combustion engine vehicles.
+                </p>
+                <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800 font-mono text-xs text-slate-300">
+                    <i class="fa-solid fa-triangle-exclamation text-tactical-amber mr-2"></i> Unreinforced tires fail rapidly under EV loads.
+                </div>
+            </div>
+
+            <!-- Crisis Card 3 -->
+            <div class="glass-card p-8 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-tactical-magenta/10 border border-tactical-magenta/30 text-tactical-magenta flex items-center justify-center text-xl mb-6 font-mono">
+                    <i class="fa-solid fa-skull-crossbones"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-3">6PPD-Quinone Toxic Runoff</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Tires use 6PPD as an ozone preservative. When exposed to air, it reacts into 6PPD-quinone, a chemical compound washed off during driving that causes massive aquatic mortality in freshwater species.
+                </p>
+                <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800 font-mono text-xs text-slate-300">
+                    <i class="fa-solid fa-flask text-tactical-magenta mr-2"></i> Micro-Rubber Zero encapsulates chemical runoff.
+                </div>
+            </div>
+        </div>
+
+        <!-- SDG 12 Highlight Grid -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-tactical-cyan">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="px-3 py-1 bg-tactical-cyan/20 text-tactical-cyan border border-tactical-cyan/40 rounded font-mono text-xs font-bold">UN SDG TARGET 12.4</span>
+                    <h4 class="text-lg font-bold text-white">Environmentally Sound Chemical Management</h4>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Significantly reduces the release of hazardous 6PPD-quinone preservative runoff and synthetic micro-polymers into air, soil, and aquatic ecosystems throughout the product life cycle.
+                </p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-emerald-400">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded font-mono text-xs font-bold">UN SDG TARGET 12.5</span>
+                    <h4 class="text-lg font-bold text-white">Substantial Waste Generation Reduction</h4>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Extends physical tread longevity to cut tire replacement frequency in half (~80,000–100,000 km lifespan), directly curbing global scrap tire accumulation in municipal landfills and waste fires.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: TECHNICAL ARCHITECTURE & CHEMICAL ENGINEERING -->
+    <section id="engineering" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto relative z-10 border-t border-slate-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono uppercase tracking-widest text-tactical-cyan mb-3">03 // Chemical Engineering & Mechanics</h2>
+            <h3 class="text-3xl sm:text-4xl font-bold text-white">Advanced Nano-Reinforcement Architecture</h3>
+            <p class="text-slate-400 mt-4 font-light text-base">Combining 3D isotropic crumpled graphene ball topology with peroxide-mediated covalent cross-linking for unprecedented mechanical durability.</p>
+        </div>
+
+        <!-- Interactive Stepper / Tabbed Viewer -->
+        <div class="glass-panel p-6 sm:p-10 rounded-3xl">
+            <!-- Tabs Header -->
+            <div class="flex flex-wrap gap-3 pb-8 border-b border-slate-800">
+                <button onclick="switchTab('step1')" id="tab-step1" class="tab-btn active px-5 py-3 rounded-xl font-mono text-xs font-bold uppercase transition-all bg-tactical-cyan text-black shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                    1. 3D Crumpled Graphene Balls
+                </button>
+                <button onclick="switchTab('step2')" id="tab-step2" class="tab-btn px-5 py-3 rounded-xl font-mono text-xs font-bold uppercase transition-all bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700">
+                    2. Peroxide-Mediated Cross-Linking (DCP)
+                </button>
+                <button onclick="switchTab('step3')" id="tab-step3" class="tab-btn px-5 py-3 rounded-xl font-mono text-xs font-bold uppercase transition-all bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700">
+                    3. Molecular Synthesis Visualization
+                </button>
+            </div>
+
+            <!-- Tab Content 1 -->
+            <div id="content-step1" class="tab-content py-6 grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="text-xs font-mono text-tactical-cyan">TOPOLOGICAL REINFORCEMENT</span>
+                    <h4 class="text-2xl font-bold text-white">3D Isotropic Crumpled Graphene Ball Architecture</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Flat graphene sheets suffer from severe agglomeration and restacking inside rubber matrices, losing their mechanical advantage. Micro-Rubber Zero uses <strong>isotropic crumpled graphene balls</strong> (inspired by Northwestern University nanoscale aerosol processing).
+                    </p>
+                    <ul class="space-y-3 font-mono text-xs text-slate-400">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-tactical-cyan mt-1"></i>
+                            <span><strong>Agglomeration Resistant:</strong> Spherical crumpled geometry prevents flat sheet stacking.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-tactical-cyan mt-1"></i>
+                            <span><strong>Omni-Directional Stress Dispersion:</strong> Isotropic structure dissipates high-shear braking and cornering forces uniformly.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-tactical-cyan mt-1"></i>
+                            <span><strong>Mechanical Interlocking:</strong> Polymer chains physically lock into paper-ball folds under high strain.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-5 bg-slate-950/80 p-6 rounded-2xl border border-slate-800 text-center">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-tactical-cyan/10 border-2 border-dashed border-tactical-cyan flex items-center justify-center text-3xl text-tactical-cyan animate-spin" style="animation-duration: 20s;">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                    </div>
+                    <div class="font-mono text-xs text-tactical-cyan font-bold">ISOTROPIC GRAPHENE TOPOLOGY</div>
+                    <p class="text-[11px] text-slate-400 mt-2">Eliminates 2D flat-sheet stacking for 360° mechanical energy absorption.</p>
+                </div>
+            </div>
+
+            <!-- Tab Content 2 -->
+            <div id="content-step2" class="tab-content hidden py-6 grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="text-xs font-mono text-tactical-amber">COVALENT BONDING</span>
+                    <h4 class="text-2xl font-bold text-white">Peroxide-Mediated Covalent Cross-Linking (DCP)</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Rather than relying solely on sulfur vulcanization, Dicumyl Peroxide (DCP) is added as an organic peroxide curing agent. Under thermal processing, DCP decomposes into reactive alkoxy radicals.
+                    </p>
+                    <ul class="space-y-3 font-mono text-xs text-slate-400">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-atom text-tactical-amber mt-1"></i>
+                            <span><strong>Free Radical Generation:</strong> Thermal curing splits DCP to extract hydrogen atoms from rubber backbones.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-atom text-tactical-amber mt-1"></i>
+                            <span><strong>Direct Carbon-Carbon (C-C) Bonds:</strong> Creates covalent linkages directly between the synthetic elastomer polymer chains and functionalized graphene sites.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-atom text-tactical-amber mt-1"></i>
+                            <span><strong>Thermal Resilience:</strong> C-C bonds possess higher bond energy than sulfur-sulfur bonds, preventing thermal breakdown.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-5 bg-slate-950/80 p-6 rounded-2xl border border-slate-800 text-center">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-tactical-amber/10 border-2 border-tactical-amber flex items-center justify-center text-3xl text-tactical-amber">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+                    <div class="font-mono text-xs text-tactical-amber font-bold">C-C COVALENT CROSS-LINKING</div>
+                    <p class="text-[11px] text-slate-400 mt-2">DCP radicals bind rubber backbones to graphene nanoplatelets.</p>
+                </div>
+            </div>
+
+            <!-- Tab Content 3 -->
+            <div id="content-step3" class="tab-content hidden py-6 grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-12 space-y-6">
+                    <div class="text-center max-w-2xl mx-auto">
+                        <span class="text-xs font-mono text-emerald-400">MOLECULAR SYNTHESIS DIAGRAM</span>
+                        <h4 class="text-2xl font-bold text-white mt-1">Integrated Rubber Polymer Matrix</h4>
+                    </div>
+
+                    <!-- Diagram Container -->
+                    <div class="bg-slate-950 p-8 rounded-2xl border border-slate-800 grid md:grid-cols-3 gap-6 text-center font-mono text-xs relative">
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                            <i class="fa-solid fa-dna text-2xl text-blue-400 mb-2"></i>
+                            <div class="text-white font-bold mb-1">Elastomer Backbone</div>
+                            <div class="text-[11px] text-slate-400">Standard SBR / Polybutadiene rubber polymer chains</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900 border border-tactical-cyan">
+                            <i class="fa-solid fa-circle-nodes text-2xl text-tactical-cyan mb-2"></i>
+                            <div class="text-tactical-cyan font-bold mb-1">+ Crumpled Graphene</div>
+                            <div class="text-[11px] text-slate-400">High surface area isotropic nanospheres</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900 border border-tactical-amber">
+                            <i class="fa-solid fa-fire-flame-curved text-2xl text-tactical-amber mb-2"></i>
+                            <div class="text-tactical-amber font-bold mb-1">+ DCP Thermal Curing</div>
+                            <div class="text-[11px] text-slate-400">Forms ultra-strong carbon-carbon inter-chain bridges</div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs text-center">
+                        <i class="fa-solid fa-shield-check mr-2"></i> RESULT: Ultra-durable nano-reinforced tread elastomer resistant to micro-particle tearing under EV torque loads.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: PERFORMANCE & SUSTAINABILITY METRICS -->
+    <section id="metrics" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto relative z-10 border-t border-slate-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono uppercase tracking-widest text-tactical-cyan mb-3">04 // Performance & Sustainability Metrics</h2>
+            <h3 class="text-3xl sm:text-4xl font-bold text-white">Standard vs. Micro-Rubber Zero Comparison</h3>
+            <p class="text-slate-400 mt-4 font-light text-base">Direct performance metrics based on lab vulcanization benchmarks.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
+            <!-- Data Comparison Table -->
+            <div class="lg:col-span-7 glass-panel rounded-2xl overflow-hidden border border-slate-800">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-mono text-xs">
+                        <thead class="bg-slate-900/90 text-slate-400 border-b border-slate-800 uppercase">
+                            <tr>
+                                <th class="p-4">Metric</th>
+                                <th class="p-4 text-red-400">Standard Carbon-Black</th>
+                                <th class="p-4 text-tactical-cyan">Micro-Rubber Zero</th>
+                                <th class="p-4 text-emerald-400">Net Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <tr class="hover:bg-slate-800/30">
+                                <td class="p-4 font-bold text-white">Micro-Rubber Shedding</td>
+                                <td class="p-4 text-slate-400">Baseline (100%)</td>
+                                <td class="p-4 text-tactical-cyan font-bold">Reduced 50%–60%</td>
+                                <td class="p-4 text-emerald-400">Ocean Microplastics Mitigated</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/30">
+                                <td class="p-4 font-bold text-white">Tread Lifespan</td>
+                                <td class="p-4 text-slate-400">40,000–50,000 km</td>
+                                <td class="p-4 text-tactical-cyan font-bold">80,000–100,000 km</td>
+                                <td class="p-4 text-emerald-400">Doubles Tread Life (50% Scrap Saved)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/30">
+                                <td class="p-4 font-bold text-white">Thermal Dissipation</td>
+                                <td class="p-4 text-slate-400">Low clearance rate</td>
+                                <td class="p-4 text-tactical-cyan font-bold">High (Graphene Conductive)</td>
+                                <td class="p-4 text-emerald-400">Prevents Thermal Rubber Breakdown</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/30">
+                                <td class="p-4 font-bold text-white">6PPD-Quinone Runoff</td>
+                                <td class="p-4 text-slate-400">High Aquatic Toxicity</td>
+                                <td class="p-4 text-tactical-cyan font-bold">Minimal Release</td>
+                                <td class="p-4 text-emerald-400">Protects Marine & River Species</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Dynamic SVG Metric Chart Visualizer -->
+            <div class="lg:col-span-5 glass-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="font-mono text-xs text-tactical-cyan font-bold">VISUAL BENCHMARK MATRIX</span>
+                    <span class="text-[10px] font-mono text-slate-400">RELATIVE PERFORMANCE INDEX</span>
+                </div>
+
+                <!-- Custom SVG Bar Chart -->
+                <div class="space-y-6">
+                    <!-- Chart 1: Shedding Rate (Lower is better) -->
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-2">
+                            <span class="text-slate-300">Micro-Particle Shedding Rate (Lower is Better)</span>
+                        </div>
+                        <div class="space-y-2 font-mono text-[11px]">
+                            <div class="flex items-center gap-2">
+                                <span class="w-20 text-slate-400">Standard</span>
+                                <div class="flex-1 bg-slate-800 h-4 rounded-full overflow-hidden">
+                                    <div class="bg-red-500/80 h-full w-[100%]"></div>
+                                </div>
+                                <span class="text-red-400 w-10 text-right">100%</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-20 text-tactical-cyan font-bold">Proposed</span>
+                                <div class="flex-1 bg-slate-800 h-4 rounded-full overflow-hidden">
+                                    <div class="bg-tactical-cyan h-full w-[42%]"></div>
+                                </div>
+                                <span class="text-tactical-cyan w-10 text-right font-bold">42%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Tread Longevity (Higher is better) -->
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-2">
+                            <span class="text-slate-300">Tread Lifespan Capability (km)</span>
+                        </div>
+                        <div class="space-y-2 font-mono text-[11px]">
+                            <div class="flex items-center gap-2">
+                                <span class="w-20 text-slate-400">Standard</span>
+                                <div class="flex-1 bg-slate-800 h-4 rounded-full overflow-hidden">
+                                    <div class="bg-slate-500 h-full w-[45%]"></div>
+                                </div>
+                                <span class="text-slate-400 w-10 text-right">45k</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-20 text-emerald-400 font-bold">Proposed</span>
+                                <div class="flex-1 bg-slate-800 h-4 rounded-full overflow-hidden">
+                                    <div class="bg-emerald-400 h-full w-[95%]"></div>
+                                </div>
+                                <span class="text-emerald-400 w-10 text-right font-bold">95k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] font-mono text-slate-400">
+                    <i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Based on 55% average shedding reduction under high-shear friction tests.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: INTERACTIVE SIMULATOR & ROI CALCULATOR WIDGET -->
+    <section id="simulator" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto relative z-10 border-t border-slate-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono uppercase tracking-widest text-tactical-cyan mb-3">05 // Interactive Impact Simulator</h2>
+            <h3 class="text-3xl sm:text-4xl font-bold text-white">Fleet Sustainability & ROI Calculator</h3>
+            <p class="text-slate-400 mt-4 font-light text-base">Adjust fleet size and annual mileage to model environmental impact mitigation and total operational savings.</p>
+        </div>
+
+        <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-slate-800 grid lg:grid-cols-12 gap-12 items-center">
+            <!-- Controls Column -->
+            <div class="lg:col-span-6 space-y-8">
+                <!-- Slider 1: Fleet Size -->
+                <div>
+                    <div class="flex justify-between items-center mb-3 font-mono">
+                        <label for="fleetSize" class="text-sm font-bold text-white uppercase">Fleet Size (Vehicles)</label>
+                        <span id="fleetSizeVal" class="text-xl font-bold text-tactical-cyan bg-slate-900 px-3 py-1 rounded border border-tactical-cyan/30">150</span>
+                    </div>
+                    <input type="range" id="fleetSize" min="1" max="1000" value="150" class="w-full">
+                    <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                        <span>1 Vehicle</span>
+                        <span>500 Vehicles</span>
+                        <span>1,000 Vehicles</span>
+                    </div>
+                </div>
+
+                <!-- Slider 2: Annual Mileage -->
+                <div>
+                    <div class="flex justify-between items-center mb-3 font-mono">
+                        <label for="annualMileage" class="text-sm font-bold text-white uppercase">Annual Mileage per Vehicle (km)</label>
+                        <span id="annualMileageVal" class="text-xl font-bold text-tactical-amber bg-slate-900 px-3 py-1 rounded border border-tactical-amber/30">45,000</span>
+                    </div>
+                    <input type="range" id="annualMileage" min="5000" max="150000" step="5000" value="45000" class="w-full">
+                    <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                        <span>5,000 km</span>
+                        <span>75,000 km</span>
+                        <span>150,000 km</span>
+                    </div>
+                </div>
+
+                <!-- Vehicle Type Selector Toggle -->
+                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                    <span class="block font-mono text-xs text-slate-400 mb-3 uppercase">Primary Vehicle Powertrain Type</span>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="powertrainEV" onclick="setPowertrain('EV')" class="py-2.5 rounded-lg font-mono text-xs font-bold uppercase transition-all bg-tactical-cyan text-black">
+                            <i class="fa-solid fa-charging-station mr-1"></i> Electric Vehicle (EV)
+                        </button>
+                        <button id="powertrainICE" onclick="setPowertrain('ICE')" class="py-2.5 rounded-lg font-mono text-xs font-bold uppercase transition-all bg-slate-800 text-slate-400 hover:text-white">
+                            <i class="fa-solid fa-gas-pump mr-1"></i> ICE Vehicle
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculated Outputs Display Card -->
+            <div class="lg:col-span-6 glass-card p-8 rounded-2xl border border-tactical-cyan/40 relative">
+                <div class="text-xs font-mono text-tactical-cyan uppercase tracking-widest mb-6 pb-2 border-b border-slate-800 flex justify-between items-center">
+                    <span>ESTIMATED ANNUAL IMPACT</span>
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <!-- Result 1 -->
+                    <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+                        <div class="text-[10px] font-mono text-slate-400 uppercase">Microplastic Shedding Prevented</div>
+                        <div id="resShedding" class="text-3xl font-mono font-bold text-tactical-cyan mt-2">1,215 kg</div>
+                        <div class="text-[10px] font-mono text-slate-500 mt-1">Prevented from entering waterways</div>
+                    </div>
+
+                    <!-- Result 2 -->
+                    <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+                        <div class="text-[10px] font-mono text-slate-400 uppercase">Tires Saved from Landfill</div>
+                        <div id="resTiresSaved" class="text-3xl font-mono font-bold text-emerald-400 mt-2">270 Tires</div>
+                        <div class="text-[10px] font-mono text-slate-500 mt-1">Due to 2x extended lifespan</div>
+                    </div>
+
+                    <!-- Result 3 -->
+                    <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+                        <div class="text-[10px] font-mono text-slate-400 uppercase">Estimated Fleet Cost Savings</div>
+                        <div id="resCostSavings" class="text-3xl font-mono font-bold text-tactical-amber mt-2">$67,500</div>
+                        <div class="text-[10px] font-mono text-slate-500 mt-1">Direct replacement costs saved</div>
+                    </div>
+
+                    <!-- Result 4 -->
+                    <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+                        <div class="text-[10px] font-mono text-slate-400 uppercase">6PPD Toxicity Mitigation Score</div>
+                        <div id="resToxScore" class="text-3xl font-mono font-bold text-cyan-300 mt-2">94.8 / 100</div>
+                        <div class="text-[10px] font-mono text-emerald-400 mt-1"><i class="fa-solid fa-shield-check"></i> High Marine Protection</div>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <button onclick="openModal('proposalModal')" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-tactical-cyan border border-tactical-cyan/40 font-mono text-xs font-bold uppercase transition-all">
+                        Request Full Commercial Fleet Assessment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: COMMERCIAL VIABILITY & DROP-IN INTEGRATION -->
+    <section id="integration" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto relative z-10 border-t border-slate-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono uppercase tracking-widest text-tactical-cyan mb-3">06 // Industrial Feasibility</h2>
+            <h3 class="text-3xl sm:text-4xl font-bold text-white">Drop-In Manufacturing Integration</h3>
+            <p class="text-slate-400 mt-4 font-light text-base">Designed to integrate seamlessly into existing tire production plants with zero expensive factory re-tooling.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="glass-card p-8 rounded-2xl relative">
+                <div class="w-10 h-10 rounded-lg bg-tactical-cyan/20 text-tactical-cyan font-mono font-bold flex items-center justify-center mb-6">
+                    01
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Banbury Mixing Phase</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Isotropic crumpled graphene ball masterbatch is introduced during standard Banbury internal mixing directly alongside raw elastomers and carbon black fillers.
+                </p>
+                <span class="text-[10px] font-mono text-tactical-cyan uppercase">No Capital Expenditure Overhaul</span>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="glass-card p-8 rounded-2xl relative">
+                <div class="w-10 h-10 rounded-lg bg-tactical-amber/20 text-tactical-amber font-mono font-bold flex items-center justify-center mb-6">
+                    02
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">DCP Curing Agent Injection</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Dicumyl Peroxide (DCP) is introduced into the secondary compounding stage, ensuring homogenous distribution without premature pre-cure (scorch).
+                </p>
+                <span class="text-[10px] font-mono text-tactical-amber uppercase">Standard Chemical Feedlines</span>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="glass-card p-8 rounded-2xl relative">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 font-mono font-bold flex items-center justify-center mb-6">
+                    03
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Thermal Vulcanization</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Under standard thermal tire curing presses (~160°C–180°C), DCP triggers radical cross-linking, creating permanent carbon-carbon graphene-rubber bonds.
+                </p>
+                <span class="text-[10px] font-mono text-emerald-400 uppercase">Standard Molding Cycles</span>
+            </div>
+        </div>
+
+        <!-- Callout Banner -->
+        <div class="mt-12 glass-panel p-8 rounded-2xl flex flex-wrap items-center justify-between gap-6 border-l-4 border-l-tactical-cyan">
+            <div>
+                <h4 class="text-xl font-bold text-white">Ready for Pilot Production Testing?</h4>
+                <p class="text-slate-400 text-sm mt-1">Access complete chemical formulations, compound lab tests, and licensing frameworks.</p>
+            </div>
+            <button onclick="openModal('proposalModal')" class="px-6 py-3 rounded-xl bg-tactical-cyan text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-cyan-300 transition-all shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                Request Pilot Whitepaper
+            </button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-12 px-4 lg:px-8 relative z-10 text-xs font-mono text-slate-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-tactical-cyan/20 border border-tactical-cyan/40 flex items-center justify-center text-tactical-cyan font-bold">
+                    <i class="fa-solid fa-atom"></i>
+                </div>
+                <div>
+                    <span class="text-white font-bold">MICRO-RUBBER ZERO</span>
+                    <div class="text-[10px]">UN SDG 12 Responsible Consumption & Production Alignment</div>
+                </div>
+            </div>
+
+            <div>
+                © 2026 Micro-Rubber Zero Initiative. All Rights Reserved. Executive Innovation Proposal.
+            </div>
+
+            <div class="flex gap-4 text-slate-400">
+                <a href="#overview" class="hover:text-tactical-cyan">Top</a>
+                <a href="#engineering" class="hover:text-tactical-cyan">Chemistry</a>
+                <a href="#simulator" class="hover:text-tactical-cyan">ROI Calculator</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DIALOG: WHITEPAPER / TECHNICAL PROPOSAL DOWNLOAD -->
+    <div id="proposalModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="glass-panel max-w-lg w-full p-8 rounded-3xl border border-tactical-cyan/50 relative shadow-2xl">
+            <!-- Close Button -->
+            <button onclick="closeModal('proposalModal')" class="absolute top-6 right-6 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-tactical-cyan/20 text-tactical-cyan flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-file-pdf"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Download Executive Proposal</h3>
+                    <p class="text-xs text-slate-400 font-mono">MICRO-RUBBER ZERO TECHNICAL WHITEPAPER</p>
+                </div>
+            </div>
+
+            <p class="text-slate-300 text-xs mb-6 leading-relaxed">
+                Enter your executive credentials to receive the complete 12-page technical dossier including Banbury mixing ratios, DCP kinetic cross-linking data, and full lab toxicity reports.
+            </p>
+
+            <form id="modalForm" onsubmit="handleFormSubmit(event)" class="space-y-4 font-mono text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">FULL NAME</label>
+                    <input type="text" required placeholder="Dr. Alex Morgan" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white focus:border-tactical-cyan focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 mb-1">ORGANIZATION / FLEET / AUTOMOTIVE OEM</label>
+                    <input type="text" required placeholder="Global Mobility Corp" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white focus:border-tactical-cyan focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 mb-1">WORK EMAIL</label>
+                    <input type="email" required placeholder="a.morgan@mobility.com" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white focus:border-tactical-cyan focus:outline-none">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-tactical-cyan to-tactical-cyanLight text-black font-bold uppercase tracking-wider hover:opacity-90 transition-all shadow-[0_0_20px_rgba(0,242,254,0.4)]">
+                    Download Technical Brief (PDF)
+                </button>
+            </form>
+
+            <div id="modalSuccess" class="hidden text-center py-8 space-y-3">
+                <i class="fa-solid fa-circle-check text-4xl text-emerald-400"></i>
+                <div class="text-base font-bold text-white">Whitepaper Dispatched!</div>
+                <p class="text-xs text-slate-400 font-mono">The technical proposal has been sent to your email. Check your inbox momentarily.</p>
+                <button onclick="closeModal('proposalModal')" class="mt-4 px-6 py-2 rounded-lg bg-slate-800 text-slate-300 font-mono text-xs">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & INTERACTION -->
+    <script>
+        // Global Powertrain Mode for Simulator
+        let currentPowertrain = 'EV';
+
+        // Initialize Counters & Events on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCounters();
+            setupSimulator();
+            setupThemeToggle();
+            setupMobileMenu();
+        });
+
+        // 1. Animated Number Counter Script
+        function initCounters() {
+            const counters = document.querySelectorAll('[data-counter]');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-counter');
+                let count = 0;
+                const speed = target / 50;
+
+                const updateCount = () => {
+                    count += speed;
+                    if (count < target) {
+                        counter.innerText = count.toFixed(1);
+                        setTimeout(updateCount, 25);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // 2. Tab Switcher for Chemical Engineering
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            // Deactivate all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-tactical-cyan', 'text-black', 'shadow-[0_0_15px_rgba(0,242,254,0.3)]');
+                btn.classList.add('bg-slate-800/80', 'text-slate-400');
+            });
+
+            // Show selected tab content
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+
+            // Activate selected tab button
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.remove('bg-slate-800/80', 'text-slate-400');
+            activeBtn.classList.add('bg-tactical-cyan', 'text-black', 'shadow-[0_0_15px_rgba(0,242,254,0.3)]');
+        }
+
+        // 3. Interactive Fleet Impact Simulator Logic
+        function setupSimulator() {
+            const fleetInput = document.getElementById('fleetSize');
+            const mileageInput = document.getElementById('annualMileage');
+
+            const fleetVal = document.getElementById('fleetSizeVal');
+            const mileageVal = document.getElementById('annualMileageVal');
+
+            function updateOutputs() {
+                const fleet = parseInt(fleetInput.value);
+                const mileage = parseInt(mileageInput.value);
+
+                fleetVal.innerText = fleet.toLocaleString();
+                mileageVal.innerText = mileage.toLocaleString() + ' km';
+
+                // Calculation Coefficients
+                // Standard tire wears ~0.08g per km (EV wears 1.25x more = 0.10g per km)
+                const wearMultiplier = currentPowertrain === 'EV' ? 0.10 : 0.08;
+                
+                // Total baseline micro-rubber generated in kg per year for fleet (4 tires per vehicle)
+                const totalBaselineSheddingKg = (fleet * 4 * mileage * wearMultiplier) / 1000;
+                
+                // Proposed reduction: 55% average reduction
+                const sheddingPreventedKg = Math.round(totalBaselineSheddingKg * 0.55);
+
+                // Tires saved: Baseline tire life = 45,000km. Proposed = 90,000km.
+                // Standard replaces tires every (mileage / 45000) times per year.
+                const standardReplacementsPerYear = (mileage / 45000) * fleet * 4;
+                const proposedReplacementsPerYear = (mileage / 90000) * fleet * 4;
+                const tiresSaved = Math.round(standardReplacementsPerYear - proposedReplacementsPerYear);
+
+                // Cost savings: Average commercial/EV tire cost = $250
+                const costSavings = tiresSaved * 250;
+
+                // Toxicity Mitigation Score (max 100)
+                const toxScore = (90 + (sheddingPreventedKg > 1000 ? 8 : 4.8)).toFixed(1);
+
+                // Update DOM Outputs
+                document.getElementById('resShedding').innerText = sheddingPreventedKg.toLocaleString() + ' kg';
+                document.getElementById('resTiresSaved').innerText = tiresSaved.toLocaleString() + ' Tires';
+                document.getElementById('resCostSavings').innerText = '$' + costSavings.toLocaleString();
+                document.getElementById('resToxScore').innerText = toxScore + ' / 100';
+            }
+
+            fleetInput.addEventListener('input', updateOutputs);
+            mileageInput.addEventListener('input', updateOutputs);
+
+            // Initial calculation
+            updateOutputs();
+        }
+
+        function setPowertrain(type) {
+            currentPowertrain = type;
+            const btnEV = document.getElementById('powertrainEV');
+            const btnICE = document.getElementById('powertrainICE');
+
+            if (type === 'EV') {
+                btnEV.className = "py-2.5 rounded-lg font-mono text-xs font-bold uppercase transition-all bg-tactical-cyan text-black";
+                btnICE.className = "py-2.5 rounded-lg font-mono text-xs font-bold uppercase transition-all bg-slate-800 text-slate-400 hover:text-white";
+            } else {
+                btnICE.className = "py-2.5 rounded-lg font-mono text-xs font-bold uppercase transition-all bg-tactical-cyan text-black";
+                btnEV.className = "py-2.5 rounded-lg font-mono text-xs font-bold uppercase transition-all bg-slate-800 text-slate-400 hover:text-white";
+            }
+
+            // Trigger simulator update
+            document.getElementById('fleetSize').dispatchEvent(new Event('input'));
+        }
+
+        // 4. Modal Handlers
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            // Reset modal state
+            document.getElementById('modalForm').classList.remove('hidden');
+            document.getElementById('modalSuccess').classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            document.getElementById('modalForm').classList.add('hidden');
+            document.getElementById('modalSuccess').classList.remove('hidden');
+        }
+
+        // 5. Theme Color Accent Switcher
+        function setupThemeToggle() {
+            const btn = document.getElementById('accentThemeBtn');
+            const modes = ['', 'theme-amber-accent', 'theme-emerald-accent'];
+            let currentModeIdx = 0;
+
+            btn.addEventListener('click', () => {
+                if (modes[currentModeIdx]) {
+                    document.body.classList.remove(modes[currentModeIdx]);
+                }
+                currentModeIdx = (currentModeIdx + 1) % modes.length;
+                if (modes[currentModeIdx]) {
+                    document.body.classList.add(modes[currentModeIdx]);
+                }
+            });
+        }
+
+        // 6. Mobile Navigation Menu Toggle
+        function setupMobileMenu() {
+            const btn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileMenu');
+            const links = document.querySelectorAll('.mobile-link');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
